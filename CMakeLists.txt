@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.4)
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMakeModules)
 project(lyli CXX)
 
-set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wstrict-aliasing -Wextra -lusb-10 -l pthread")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -Wall -Wstrict-aliasing -Wextra")
 
 ################
 # Dependencies #
@@ -50,7 +50,7 @@ add_subdirectory(calibration)
 add_subdirectory(filesystem)
 add_subdirectory(image)
 
-add_library(lyliiface STATIC camera.cpp context)
+add_library(lyliiface STATIC camera.cpp context.cpp)
 target_link_libraries(lyliiface lylicalib lylifilesystem lyliimage usbpp ${OpenCV_LIBS} ${LIBUSB_LIBRARIES} ${JsonCpp_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 add_dependencies(lyliiface libusbpp_project)
 
