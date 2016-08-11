@@ -107,34 +107,62 @@ void listFiles(Lyli::Camera *camera) {
 
 void downloadImage(Lyli::Camera *camera, int id) {
 	Lyli::Filesystem::PhotoList fileList(camera->getFilesystemAccess().getPictureList());
-	::Lyli::Filesystem::Photo *photo = fileList[id].get();
-
 	std::stringstream ss;
 	std::ofstream ofs;
 
-	ss << photo->getName() << ".TXT";
-	ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
-	photo->getImageMetadata(ofs);
-	ofs.flush();
-	ofs.close();
-	ss.str("");
-	ss.clear();
+	std::cout << id << std::endl;
+	if (id == -1) {
+		for (auto file : fileList){
+		::Lyli::Filesystem::Photo *photo = file.get();
+		std::cout << "downloading... " <<
+				     photo->getName()  << ".RAW/" <<
+				     photo->getName()  << ".TXT" << std::endl;
 
-	ss << photo->getName() << ".128";
-	ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
-	photo->getImageThumbnail(ofs);
-	ofs.flush();
-	ofs.close();
-	ss.str("");
-	ss.clear();
+		ss << photo->getName() << ".TXT";
+		ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
+		photo->getImageMetadata(ofs);
+		ofs.flush();
+		ofs.close();
+		ss.str("");
+		ss.clear();
 
-	ss << photo->getName() << ".RAW";
-	ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
-	photo->getImageData(ofs);
-	ofs.flush();
-	ofs.close();
-	ss.str("");
-	ss.clear();
+		ss << photo->getName() << ".RAW";
+		ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
+		photo->getImageData(ofs);
+		ofs.flush();
+		ofs.close();
+		ss.str("");
+		ss.clear();
+		}
+	}
+	else {
+		::Lyli::Filesystem::Photo *photo = fileList[id].get();
+		std::cout << "downloading... " << photo->getName() << std::endl;
+
+		ss << photo->getName() << ".TXT";
+		ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
+		photo->getImageMetadata(ofs);
+		ofs.flush();
+		ofs.close();
+		ss.str("");
+		ss.clear();
+
+		ss << photo->getName() << ".RAW";
+		ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
+		photo->getImageData(ofs);
+		ofs.flush();
+		ofs.close();
+		ss.str("");
+		ss.clear();
+	}
+
+	// ss << photo->getName() << ".128";
+	// ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
+	// photo->getImageThumbnail(ofs);
+	// ofs.flush();
+	// ofs.close();
+	// ss.str("");
+	// ss.clear();	
 }
 
 void downloadCalib(Lyli::Camera *camera, const std::string &path) {
