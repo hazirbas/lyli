@@ -110,7 +110,6 @@ void downloadImage(Lyli::Camera *camera, int id) {
 	std::stringstream ss;
 	std::ofstream ofs;
 
-	std::cout << id << std::endl;
 	if (id == -1) {
 		for (auto file : fileList){
 		::Lyli::Filesystem::Photo *photo = file.get();
@@ -137,7 +136,9 @@ void downloadImage(Lyli::Camera *camera, int id) {
 	}
 	else {
 		::Lyli::Filesystem::Photo *photo = fileList[id].get();
-		std::cout << "downloading... " << photo->getName() << std::endl;
+		std::cout << "downloading... " <<
+				     photo->getName()  << ".RAW/" <<
+				     photo->getName()  << ".TXT" << std::endl;
 
 		ss << photo->getName() << ".TXT";
 		ofs.open(ss.str(), std::ofstream::out | std::ofstream::binary);
