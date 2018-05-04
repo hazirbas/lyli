@@ -13,15 +13,31 @@ may work, too.
 * OpenCV
 
 ### Compilation
-To obtain the sources, you can either use mercurial to clone the repository, or you can download the repository snapshot from [downloads](https://bitbucket.org/stativ/lyli/downloads).
 
-Lyli uses CMake-based build. To compile Lyli from sources, first cd into the directory with sources and execute the following commands
-~~~
+- Make sure requirements above are satisfied. In Ubuntu, you should be able to run following to install all at once:
+```bash
+sudo apt-get install gcc libusb-1.0-0-dev libqt5core5a libqt5widgets5 libjsoncpp-dev libopencv-dev
+```
+
+- You might need these packages as well:
+```bash
+sudo apt-get install libtbb-dev hgsvn
+```
+
+- Clone this repository, and create a "build" folder.
+```
+cd ~
+git clone https://github.com/hazirbas/lyli.git
+cd lyli
 mkdir build
 cd build
+```
+
+- Then build with CMake.
+```
 cmake ..
 make
-~~~
+```
 
 If everything goes well, there should be a *lyli* executable in the build directory and *lyli-qt* in build/ui in case the Qt GUI was compiled.
 
